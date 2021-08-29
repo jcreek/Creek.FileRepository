@@ -39,5 +39,19 @@ namespace FileRepository
             /// </summary>
             Sql,
         }
+
+        /// <summary>
+        /// Initialise an implementation of IFileRepository based on a selected enum member.
+        /// </summary>
+        /// <param name="repositoryType">The type of repository to initialise, based on the enum member.</param>
+        /// <returns>Returns an initialised repository.</returns>
+        public IFileRepository GetFileRepository(RepositoryType repositoryType)
+        {
+            throw new NotImplementedException("This section won't work until another method is set up with at least one repository type.");
+
+            //IFileRepository fileRepository = // Here we need to get the specific class of repository based on the RepositoryType enum.
+
+            //return fileRepository;
+        }
     }
 }
