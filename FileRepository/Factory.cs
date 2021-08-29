@@ -65,7 +65,8 @@ namespace FileRepository
                 //    break;
 
                 default:
-                    throw new ArgumentException($"{Enum.GetName(typeof(RepositoryType), value: repositoryType)} is not a valid repository type.");
+                    string repositoryName = Enum.GetName(typeof(RepositoryType), value: repositoryType);
+                    throw new ArgumentException($"{repositoryName} is not a valid repository type.");
             }
         }
     }
