@@ -27,9 +27,9 @@ namespace FileRepository
         /// <summary>
         /// Update a file in the repository.
         /// </summary>
-        /// <param name="fileName">The file name of the file to update.</param>
+        /// <param name="file">The file to store.</param>
         /// <returns>Returns a boolean representing whether or not the update was successful.</returns>
-        Task<bool> UpdateFileAsync(string fileName);
+        Task<bool> UpdateFileAsync(RepoFile file);
 
         /// <summary>
         /// Delete a file in the repository.
