@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FileRepository.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -58,8 +59,8 @@ namespace FileRepository
                 //case RepositoryType.S3:
                 //    break;
 
-                //case RepositoryType.Sftp:
-                //    break;
+                case RepositoryType.Sftp:
+                    return new SftpRepository();
 
                 //case RepositoryType.Sql:
                 //    break;
