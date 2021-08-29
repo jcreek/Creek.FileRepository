@@ -6,7 +6,7 @@ namespace FileRepository.Models
     /// <summary>
     /// This model serves to represent the files being stored.
     /// </summary>
-    public class File
+    public class RepoFile
     {
         /// <summary>
         /// Gets or sets the id field for the file, this serves as the key field/unique identifier.
@@ -35,9 +35,9 @@ namespace FileRepository.Models
         /// <param name="fileName">The filename of the file.</param>
         /// <param name="content">The content of the file.</param>
         /// <returns>Returns an initialised File object.</returns>
-        public File GenerateFile(string id, string fileName, Stream content)
+        public RepoFile GenerateFile(string id, string fileName, Stream content)
         {
-            File newFile = new File()
+            RepoFile newFile = new RepoFile()
             {
                 Id = id,
                 FileName = fileName,
