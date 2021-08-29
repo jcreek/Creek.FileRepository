@@ -47,11 +47,26 @@ namespace FileRepository
         /// <returns>Returns an initialised repository.</returns>
         public IFileRepository GetFileRepository(RepositoryType repositoryType)
         {
-            throw new NotImplementedException("This section won't work until another method is set up with at least one repository type.");
+            switch (repositoryType)
+            {
+                //case RepositoryType.Disk:
+                //    return new DiskRepo() { };
 
-            //IFileRepository fileRepository = // Here we need to get the specific class of repository based on the RepositoryType enum.
+                //case RepositoryType.MongoDb:
+                //    break;
 
-            //return fileRepository;
+                //case RepositoryType.S3:
+                //    break;
+
+                //case RepositoryType.Sftp:
+                //    break;
+
+                //case RepositoryType.Sql:
+                //    break;
+
+                default:
+                    throw new ArgumentException($"{Enum.GetName(typeof(RepositoryType), value: repositoryType)} is not a valid repository type.");
+            }
         }
     }
 }
