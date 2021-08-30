@@ -1,4 +1,5 @@
-﻿using Creek.FileRepository.Models;
+﻿using Creek.FileRepository.Helpers;
+using Creek.FileRepository.Models;
 using Microsoft.Extensions.Configuration;
 using Renci.SshNet;
 using Renci.SshNet.Sftp;
@@ -40,6 +41,11 @@ namespace Creek.FileRepository.Repositories
         /// <returns>Returns the filename.</returns>
         public async Task<string> CreateFileAsync(RepoFile file)
         {
+            if (StringHelper.IsInvalidFileName(file.Filename))
+            {
+                throw new ArgumentException($"The filename for'{nameof(file)}' contains invalid characters for a filename.", nameof(file));
+            }
+
             bool canOverride = false;
             this.UploadFile(file, canOverride);
 
@@ -56,6 +62,10 @@ namespace Creek.FileRepository.Repositories
             if (string.IsNullOrEmpty(filename))
             {
                 throw new ArgumentException($"'{nameof(filename)}' cannot be null or empty.", nameof(filename));
+            }
+            else if (StringHelper.IsInvalidFileName(filename))
+            {
+                throw new ArgumentException($"'{nameof(filename)}' contains invalid characters for a filename.", nameof(filename));
             }
 
             using (var client = new SftpClient(this.host, this.port == 0 ? 22 : this.port, this.username, this.password))
@@ -90,6 +100,10 @@ namespace Creek.FileRepository.Repositories
             if (string.IsNullOrEmpty(filename))
             {
                 throw new ArgumentException($"'{nameof(filename)}' cannot be null or empty.", nameof(filename));
+            }
+            else if (StringHelper.IsInvalidFileName(filename))
+            {
+                throw new ArgumentException($"'{nameof(filename)}' contains invalid characters for a filename.", nameof(filename));
             }
 
             RepoFile repoFile = new RepoFile();
@@ -128,6 +142,11 @@ namespace Creek.FileRepository.Repositories
         /// <returns>Returns true if update was successful.</returns>
         public async Task<bool> UpdateFileAsync(RepoFile file)
         {
+            if (StringHelper.IsInvalidFileName(file.Filename))
+            {
+                throw new ArgumentException($"The filename for'{nameof(file)}' contains invalid characters for a filename.", nameof(file));
+            }
+
             bool canOverride = true;
             this.UploadFile(file, canOverride);
 

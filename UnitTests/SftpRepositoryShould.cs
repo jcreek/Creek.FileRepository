@@ -21,6 +21,12 @@ namespace UnitTests
         }
 
         [Test]
+        public async Task ShouldNotCreateAFileWithAnInvalidFilename()
+        {
+            Assert.That(() => CreateTestFile("create><invalid?/test.txt"), Throws.TypeOf<ArgumentException>());
+        }
+
+        [Test]
         public async Task ShouldCreateAFileWithoutThrowing()
         {
             try
