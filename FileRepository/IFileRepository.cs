@@ -14,15 +14,15 @@ namespace FileRepository
         /// Create a file in the repository.
         /// </summary>
         /// <param name="file">The file to store.</param>
-        /// <returns>Returns a string fileName of the created file.</returns>
+        /// <returns>Returns a string filename of the created file.</returns>
         Task<string> CreateFileAsync(RepoFile file);
 
         /// <summary>
         /// Read a file from the repository.
         /// </summary>
-        /// <param name="fileName">The file name of the file to read.</param>
+        /// <param name="filename">The file name of the file to read.</param>
         /// <returns>Returns the file from the repository.</returns>
-        Task<RepoFile> ReadFileAsync(string fileName);
+        Task<RepoFile> ReadFileAsync(string filename);
 
         /// <summary>
         /// Update a file in the repository.
@@ -34,8 +34,8 @@ namespace FileRepository
         /// <summary>
         /// Delete a file in the repository.
         /// </summary>
-        /// <param name="fileName">The file name of the file to delete.</param>
+        /// <param name="filename">The file name of the file to delete.</param>
         /// <returns>Returns a boolean representing whether or not the delete was successful.</returns>
-        Task<bool> DeleteFileAsync(string fileName);
+        Task<bool> DeleteFileAsync(string filename);
     }
 }
