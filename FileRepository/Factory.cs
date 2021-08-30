@@ -44,25 +44,30 @@ namespace FileRepository
         /// Initialise an implementation of IFileRepository based on a selected enum member.
         /// </summary>
         /// <param name="repositoryType">The type of repository to initialise, based on the enum member.</param>
+        /// <param name="config">The configuration to initialise the repository.</param>
         /// <returns>Returns an initialised repository.</returns>
         public static IFileRepository GetFileRepository(RepositoryType repositoryType, IConfiguration config)
         {
             switch (repositoryType)
             {
-                //case RepositoryType.Disk:
-                //    return new DiskRepo() { };
+                case RepositoryType.Disk:
+                    throw new NotImplementedException();
+                    return new DiskRepository(config);
 
-                //case RepositoryType.MongoDb:
-                //    break;
+                case RepositoryType.MongoDb:
+                    throw new NotImplementedException();
+                    return new MongoDbRepository(config);
 
-                //case RepositoryType.S3:
-                //    break;
+                case RepositoryType.S3:
+                    throw new NotImplementedException();
+                    return new S3Repository(config);
 
                 case RepositoryType.Sftp:
                     return new SftpRepository(config);
 
-                //case RepositoryType.Sql:
-                //    break;
+                case RepositoryType.Sql:
+                    throw new NotImplementedException();
+                    return new SqlRepository(config);
 
                 default:
                     string repositoryName = Enum.GetName(typeof(RepositoryType), value: repositoryType);
