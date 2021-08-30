@@ -74,9 +74,10 @@ namespace FileRepository.Repositories
 
                     //_logger.LogInformation($"Finished downloading file [{localFilePath}] from [{remoteFilePath}]");
                 }
-                catch (Exception exception)
+                catch (Exception ex)
                 {
-                    //_logger.LogError(exception, $"Failed in downloading file [{localFilePath}] from [{remoteFilePath}]");
+                    //_logger.LogError(ex, $"Failed in downloading file [{localFilePath}] from [{remoteFilePath}]");
+                    throw;
                 }
                 finally
                 {
