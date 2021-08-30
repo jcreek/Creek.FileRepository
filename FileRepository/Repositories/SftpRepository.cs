@@ -9,14 +9,21 @@ using System.Threading.Tasks;
 
 namespace FileRepository.Repositories
 {
+    /// <summary>
+    /// The repository implementation for SFTP.
+    /// </summary>
     internal class SftpRepository : IFileRepository
     {
-        private string host;
-        private int port;
-        private string username;
-        private string password;
-        private string remoteDirectoryPath;
+        private readonly string host;
+        private readonly int port;
+        private readonly string username;
+        private readonly string password;
+        private readonly string remoteDirectoryPath;
 
+        /// <summary>
+        /// Initialises a new instance of the <see cref="SftpRepository"/> class with configuration.
+        /// </summary>
+        /// <param name="config">The configuration to initialise the repository with.</param>
         internal SftpRepository(IConfiguration config)
         {
             this.host = config["SftpRepository:host"];
@@ -26,22 +33,37 @@ namespace FileRepository.Repositories
             this.remoteDirectoryPath = config["SftpRepository:remoteDirectoryPath"].ToString();
         }
 
+        /// <summary>
+        /// Create operation for the repository.
+        /// </summary>
+        /// <param name="file">The file to be created.</param>
+        /// <returns>Returns the filename.</returns>
         public async Task<string> CreateFileAsync(RepoFile file)
         {
             bool canOverride = false;
-            UploadFile(file, canOverride);
+            this.UploadFile(file, canOverride);
 
             return file.Filename;
         }
 
-        public async Task<bool> DeleteFileAsync(string fileName)
+        /// <summary>
+        /// Delete operation for the repository.
+        /// </summary>
+        /// <param name="filename">The filename to be deleted.</param>
+        /// <returns>Returns true if deletion was successful.</returns>
+        public async Task<bool> DeleteFileAsync(string filename)
         {
+            if (string.IsNullOrEmpty(filename))
+            {
+                throw new ArgumentException($"'{nameof(filename)}' cannot be null or empty.", nameof(filename));
+            }
+
             using (var client = new SftpClient(this.host, this.port == 0 ? 22 : this.port, this.username, this.password))
             {
                 try
                 {
                     client.Connect();
-                    client.DeleteFile($"{this.remoteDirectoryPath}/{fileName}");
+                    client.DeleteFile($"{this.remoteDirectoryPath}/{filename}");
                     // _logger.LogInformation($"File [{remoteFilePath}] deleted.");
                 }
                 catch (Exception exception)
@@ -58,8 +80,18 @@ namespace FileRepository.Repositories
             return true;
         }
 
-        public async Task<RepoFile> ReadFileAsync(string fileName)
+        /// <summary>
+        /// Read operation for the repository.
+        /// </summary>
+        /// <param name="filename">The filename to be read.</param>
+        /// <returns>Returns the RepoFile if reading was successful.</returns>
+        public async Task<RepoFile> ReadFileAsync(string filename)
         {
+            if (string.IsNullOrEmpty(filename))
+            {
+                throw new ArgumentException($"'{nameof(filename)}' cannot be null or empty.", nameof(filename));
+            }
+
             RepoFile repoFile = new RepoFile();
             repoFile.Content = new System.IO.MemoryStream();
 
@@ -69,9 +101,9 @@ namespace FileRepository.Repositories
                 {
                     client.Connect();
 
-                    client.DownloadFile($"{this.remoteDirectoryPath}/{fileName}", output: repoFile.Content);
+                    client.DownloadFile($"{this.remoteDirectoryPath}/{filename}", output: repoFile.Content);
 
-                    repoFile = repoFile.GenerateFile(fileName, repoFile.Content);
+                    repoFile = repoFile.GenerateFile(filename, repoFile.Content);
 
                     //_logger.LogInformation($"Finished downloading file [{localFilePath}] from [{remoteFilePath}]");
                 }
@@ -89,10 +121,15 @@ namespace FileRepository.Repositories
             return repoFile;
         }
 
+        /// <summary>
+        /// Update operation for the repository.
+        /// </summary>
+        /// <param name="file">The file to be updated.</param>
+        /// <returns>Returns true if update was successful.</returns>
         public async Task<bool> UpdateFileAsync(RepoFile file)
         {
             bool canOverride = true;
-            UploadFile(file, canOverride);
+            this.UploadFile(file, canOverride);
 
             return true;
         }
