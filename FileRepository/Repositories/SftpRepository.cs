@@ -61,6 +61,7 @@ namespace FileRepository.Repositories
         public async Task<RepoFile> ReadFileAsync(string fileName)
         {
             RepoFile repoFile = new RepoFile();
+            repoFile.Content = new System.IO.MemoryStream();
 
             using (SftpClient client = new SftpClient(this.host, this.port == 0 ? 22 : this.port, this.username, this.password))
             {
