@@ -70,7 +70,7 @@ namespace UnitTests
                 RepoFile repoFile = await fileRepository.ReadFileAsync(filename);
 
                 Assert.NotNull(repoFile);
-                Assert.NotNull(repoFile.FileName);
+                Assert.NotNull(repoFile.Filename);
                 Assert.NotNull(repoFile.Content);
                 Assert.NotNull(repoFile.Created);
             }

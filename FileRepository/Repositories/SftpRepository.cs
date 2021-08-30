@@ -31,7 +31,7 @@ namespace FileRepository.Repositories
             bool canOverride = false;
             UploadFile(file, canOverride);
 
-            return file.FileName;
+            return file.Filename;
         }
 
         public async Task<bool> DeleteFileAsync(string fileName)
@@ -106,7 +106,7 @@ namespace FileRepository.Repositories
                     client.Connect();
                     client.ChangeDirectory(this.remoteDirectoryPath);
 
-                    client.UploadFile(file.Content, file.FileName, canOverride);
+                    client.UploadFile(file.Content, file.Filename, canOverride);
 
                     //_logger.LogInformation($"Finished uploading file {file.FileName} to [{remoteDirectory}]");
                 }

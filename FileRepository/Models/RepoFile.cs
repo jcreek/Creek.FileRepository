@@ -11,7 +11,7 @@ namespace FileRepository.Models
         /// <summary>
         /// Gets or sets the actual file name of the file, this serves as the key field/unique identifier.
         /// </summary>
-        public string FileName { get; set; }
+        public string Filename { get; set; }
 
         /// <summary>
         /// Gets or sets the contents of the file, as a stream for easy manipulation.
@@ -26,14 +26,14 @@ namespace FileRepository.Models
         /// <summary>
         /// Initialise a File model based on passed parameters.
         /// </summary>
-        /// <param name="fileName">The filename of the file.</param>
+        /// <param name="filename">The filename of the file.</param>
         /// <param name="content">The content of the file.</param>
         /// <returns>Returns an initialised File object.</returns>
-        public RepoFile GenerateFile(string fileName, Stream content)
+        public RepoFile GenerateFile(string filename, Stream content)
         {
             RepoFile newFile = new RepoFile()
             {
-                FileName = fileName,
+                Filename = filename,
                 Content = content,
                 Created = DateTime.Now,
             };
