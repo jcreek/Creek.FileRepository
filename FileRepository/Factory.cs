@@ -1,7 +1,6 @@
 ﻿using FileRepository.Repositories;
+using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FileRepository
 {
@@ -46,7 +45,7 @@ namespace FileRepository
         /// </summary>
         /// <param name="repositoryType">The type of repository to initialise, based on the enum member.</param>
         /// <returns>Returns an initialised repository.</returns>
-        public static IFileRepository GetFileRepository(RepositoryType repositoryType)
+        public static IFileRepository GetFileRepository(RepositoryType repositoryType, IConfiguration config)
         {
             switch (repositoryType)
             {
@@ -60,7 +59,7 @@ namespace FileRepository
                 //    break;
 
                 case RepositoryType.Sftp:
-                    return new SftpRepository();
+                    return new SftpRepository(config);
 
                 //case RepositoryType.Sql:
                 //    break;
