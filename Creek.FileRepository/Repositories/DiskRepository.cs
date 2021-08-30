@@ -1,22 +1,22 @@
-﻿using FileRepository.Models;
+﻿using Creek.FileRepository.Models;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading.Tasks;
 
-namespace FileRepository.Repositories
+namespace Creek.FileRepository.Repositories
 {
     /// <summary>
-    /// The repository implementation for SQL.
+    /// The repository implementation for Disk.
     /// </summary>
-    internal class SqlRepository : IFileRepository
+    internal class DiskRepository : IFileRepository
     {
         /// <summary>
-        /// Initialises a new instance of the <see cref="SqlRepository"/> class with configuration.
+        /// Initialises a new instance of the <see cref="DiskRepository"/> class with configuration.
         /// </summary>
         /// <param name="config">The configuration to initialise the repository with.</param>
-        internal SqlRepository(IConfiguration config)
+        internal DiskRepository(IConfiguration config)
         {
-            //this.host = config["SqlRepository:host"];
+            //this.host = config["DiskRepository:host"];
         }
 
         public async Task<string> CreateFileAsync(RepoFile file)

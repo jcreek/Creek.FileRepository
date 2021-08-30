@@ -1,5 +1,5 @@
-using FileRepository;
-using FileRepository.Models;
+using Creek.FileRepository;
+using Creek.FileRepository.Models;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;

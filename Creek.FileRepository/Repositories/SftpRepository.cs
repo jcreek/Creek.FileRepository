@@ -1,4 +1,4 @@
-﻿using FileRepository.Models;
+﻿using Creek.FileRepository.Models;
 using Microsoft.Extensions.Configuration;
 using Renci.SshNet;
 using Renci.SshNet.Sftp;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FileRepository.Repositories
+namespace Creek.FileRepository.Repositories
 {
     /// <summary>
     /// The repository implementation for SFTP.

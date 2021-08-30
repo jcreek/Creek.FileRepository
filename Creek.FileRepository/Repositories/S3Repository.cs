@@ -1,22 +1,22 @@
-﻿using FileRepository.Models;
+﻿using Creek.FileRepository.Models;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading.Tasks;
 
-namespace FileRepository.Repositories
+namespace Creek.FileRepository.Repositories
 {
     /// <summary>
-    /// The repository implementation for MongoDb.
+    /// The repository implementation for S3.
     /// </summary>
-    internal class MongoDbRepository : IFileRepository
+    internal class S3Repository : IFileRepository
     {
         /// <summary>
-        /// Initialises a new instance of the <see cref="MongoDbRepository"/> class with configuration.
+        /// Initialises a new instance of the <see cref="S3Repository"/> class with configuration.
         /// </summary>
         /// <param name="config">The configuration to initialise the repository with.</param>
-        internal MongoDbRepository(IConfiguration config)
+        internal S3Repository(IConfiguration config)
         {
-            //this.host = config["MongoDbRepository:host"];
+            //this.host = config["S3Repository:host"];
         }
 
         public async Task<string> CreateFileAsync(RepoFile file)

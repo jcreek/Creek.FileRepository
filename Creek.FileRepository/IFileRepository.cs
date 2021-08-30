@@ -1,7 +1,7 @@
-﻿using FileRepository.Models;
+﻿using Creek.FileRepository.Models;
 using System.Threading.Tasks;
 
-namespace FileRepository
+namespace Creek.FileRepository
 {
     /// <summary>
     /// A repository interface to ensure that all storage repositories implement all the required methods, and that the methods are all generic.

@@ -1,22 +1,22 @@
-﻿using FileRepository.Models;
+﻿using Creek.FileRepository.Models;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading.Tasks;
 
-namespace FileRepository.Repositories
+namespace Creek.FileRepository.Repositories
 {
     /// <summary>
-    /// The repository implementation for Disk.
+    /// The repository implementation for MongoDb.
     /// </summary>
-    internal class DiskRepository : IFileRepository
+    internal class MongoDbRepository : IFileRepository
     {
         /// <summary>
-        /// Initialises a new instance of the <see cref="DiskRepository"/> class with configuration.
+        /// Initialises a new instance of the <see cref="MongoDbRepository"/> class with configuration.
         /// </summary>
         /// <param name="config">The configuration to initialise the repository with.</param>
-        internal DiskRepository(IConfiguration config)
+        internal MongoDbRepository(IConfiguration config)
         {
-            //this.host = config["DiskRepository:host"];
+            //this.host = config["MongoDbRepository:host"];
         }
 
         public async Task<string> CreateFileAsync(RepoFile file)

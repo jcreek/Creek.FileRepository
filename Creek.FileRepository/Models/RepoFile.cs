@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace FileRepository.Models
+namespace Creek.FileRepository.Models
 {
     /// <summary>
     /// This model serves to represent the files being stored.

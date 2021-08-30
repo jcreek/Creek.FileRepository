@@ -1,8 +1,8 @@
-﻿using FileRepository.Repositories;
+﻿using Creek.FileRepository.Repositories;
 using Microsoft.Extensions.Configuration;
 using System;
 
-namespace FileRepository
+namespace Creek.FileRepository
 {
     /// <summary>
     /// A factory to enable consumers of this package to easily get a specific type of repository.

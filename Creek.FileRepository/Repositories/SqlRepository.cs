@@ -1,22 +1,22 @@
-﻿using FileRepository.Models;
+﻿using Creek.FileRepository.Models;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading.Tasks;
 
-namespace FileRepository.Repositories
+namespace Creek.FileRepository.Repositories
 {
     /// <summary>
-    /// The repository implementation for S3.
+    /// The repository implementation for SQL.
     /// </summary>
-    internal class S3Repository : IFileRepository
+    internal class SqlRepository : IFileRepository
     {
         /// <summary>
-        /// Initialises a new instance of the <see cref="S3Repository"/> class with configuration.
+        /// Initialises a new instance of the <see cref="SqlRepository"/> class with configuration.
         /// </summary>
         /// <param name="config">The configuration to initialise the repository with.</param>
-        internal S3Repository(IConfiguration config)
+        internal SqlRepository(IConfiguration config)
         {
-            //this.host = config["S3Repository:host"];
+            //this.host = config["SqlRepository:host"];
         }
 
         public async Task<string> CreateFileAsync(RepoFile file)
