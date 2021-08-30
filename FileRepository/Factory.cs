@@ -8,7 +8,7 @@ namespace FileRepository
     /// <summary>
     /// A factory to enable consumers of this package to easily get a specific type of repository.
     /// </summary>
-    public class Factory
+    public static class Factory
     {
         /// <summary>
         /// An enum to restrict users to only select valid repository types.
@@ -46,7 +46,7 @@ namespace FileRepository
         /// </summary>
         /// <param name="repositoryType">The type of repository to initialise, based on the enum member.</param>
         /// <returns>Returns an initialised repository.</returns>
-        public IFileRepository GetFileRepository(RepositoryType repositoryType)
+        public static IFileRepository GetFileRepository(RepositoryType repositoryType)
         {
             switch (repositoryType)
             {
