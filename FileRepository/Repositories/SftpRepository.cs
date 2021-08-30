@@ -1,4 +1,5 @@
 ﻿using FileRepository.Models;
+using Microsoft.Extensions.Configuration;
 using Renci.SshNet;
 using Renci.SshNet.Sftp;
 using System;
@@ -10,6 +11,21 @@ namespace FileRepository.Repositories
 {
     internal class SftpRepository : IFileRepository
     {
+        private string host;
+        private int port;
+        private string username;
+        private string password;
+        private string remoteDirectoryPath;
+
+        internal SftpRepository(IConfiguration config)
+        {
+            this.host = config["SftpRepository:host"];
+            this.port = int.Parse(config["SftpRepository:port"]);
+            this.username = config["SftpRepository:username"].ToString();
+            this.password = config["SftpRepository:password"].ToString();
+            this.remoteDirectoryPath = config["SftpRepository:remoteDirectoryPath"].ToString();
+        }
+
         public async Task<string> CreateFileAsync(RepoFile file)
         {
             bool canOverride = false;
@@ -20,7 +36,7 @@ namespace FileRepository.Repositories
 
         public async Task<bool> DeleteFileAsync(string fileName)
         {
-            using (var client = new SftpClient(this.host, this.port == 0 ? 22 : this.port, this.userName, this.password))
+            using (var client = new SftpClient(this.host, this.port == 0 ? 22 : this.port, this.username, this.password))
             {
                 try
                 {
@@ -46,7 +62,7 @@ namespace FileRepository.Repositories
         {
             RepoFile repoFile = new RepoFile();
 
-            using (SftpClient client = new SftpClient(this.host, this.port == 0 ? 22 : this.port, this.userName, this.password))
+            using (SftpClient client = new SftpClient(this.host, this.port == 0 ? 22 : this.port, this.username, this.password))
             {
                 try
                 {
@@ -81,7 +97,7 @@ namespace FileRepository.Repositories
 
         private void UploadFile(RepoFile file, bool canOverride)
         {
-            using (SftpClient client = new SftpClient(this.host, this.port == 0 ? 22 : this.port, this.userName, this.password))
+            using (SftpClient client = new SftpClient(this.host, this.port == 0 ? 22 : this.port, this.username, this.password))
             {
                 try
                 {
@@ -105,13 +121,5 @@ namespace FileRepository.Repositories
                 }
             }
         }
-
-        // Set these from the config file or environment variables
-        private string host = "";
-
-        private int port = 0;
-        private string userName = "";
-        private string password = "";
-        private string remoteDirectoryPath = "";
     }
 }
