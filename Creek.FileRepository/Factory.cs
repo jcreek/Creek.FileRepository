@@ -70,7 +70,7 @@ namespace Creek.FileRepository
                     return new SqlRepository(config);
 
                 default:
-                    string repositoryName = Enum.GetName(typeof(RepositoryType), value: repositoryType);
+                    string repositoryName = repositoryType.ToString();
                     throw new ArgumentException($"{repositoryName} is not a valid repository type.");
             }
         }
