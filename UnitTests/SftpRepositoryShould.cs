@@ -146,10 +146,10 @@ namespace UnitTests
         private async Task CreateTestFile(String filename)
         {
             IFileRepository fileRepository = Factory.GetFileRepository(repositoryType, config);
-            RepoFile repoFile = new RepoFile();
+
             Stream contentStream = StreamHelper.GenerateStreamFromString("a,b \n c,d");
 
-            repoFile = repoFile.GenerateFile(filename, contentStream);
+            RepoFile repoFile = new RepoFile(filename, DateTime.Now, contentStream);
 
             await fileRepository.CreateFileAsync(repoFile);
         }

@@ -9,6 +9,19 @@ namespace Creek.FileRepository.Models
     public class RepoFile
     {
         /// <summary>
+        /// Initialises a new instance of the <see cref="RepoFile"/> class.
+        /// </summary>
+        /// <param name="filename">The filename of the file.</param>
+        /// <param name="created">The DateTime the file was created.</param>
+        /// <param name="content">The content of the file.</param>
+        public RepoFile(string filename, DateTime created, Stream content = null)
+        {
+            this.Filename = filename;
+            this.Content = content ?? new MemoryStream();
+            this.Created = created;
+        }
+
+        /// <summary>
         /// Gets or sets the actual file name of the file, this serves as the key field/unique identifier.
         /// </summary>
         public string Filename { get; set; }
@@ -22,23 +35,5 @@ namespace Creek.FileRepository.Models
         /// Gets or sets the datetime object representing when this file object was created.
         /// </summary>
         public DateTime Created { get; set; }
-
-        /// <summary>
-        /// Initialise a File model based on passed parameters.
-        /// </summary>
-        /// <param name="filename">The filename of the file.</param>
-        /// <param name="content">The content of the file.</param>
-        /// <returns>Returns an initialised File object.</returns>
-        public RepoFile GenerateFile(string filename, Stream content)
-        {
-            RepoFile newFile = new RepoFile()
-            {
-                Filename = filename,
-                Content = content,
-                Created = DateTime.Now,
-            };
-
-            return newFile;
-        }
     }
 }

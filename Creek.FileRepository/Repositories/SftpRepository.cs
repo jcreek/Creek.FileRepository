@@ -106,20 +106,19 @@ namespace Creek.FileRepository.Repositories
                 throw new ArgumentException($"'{nameof(filename)}' contains invalid characters for a filename.", nameof(filename));
             }
 
-            RepoFile repoFile = new RepoFile();
-            repoFile.Content = new System.IO.MemoryStream();
-
             using (SftpClient client = new SftpClient(this.host, this.port == 0 ? 22 : this.port, this.username, this.password))
             {
                 try
                 {
                     client.Connect();
 
+                    RepoFile repoFile = new RepoFile(filename, DateTime.Now);
+
                     client.DownloadFile($"{this.remoteDirectoryPath}/{filename}", output: repoFile.Content);
 
-                    repoFile = repoFile.GenerateFile(filename, repoFile.Content);
-
                     //_logger.LogInformation($"Finished downloading file [{localFilePath}] from [{remoteFilePath}]");
+
+                    return repoFile;
                 }
                 catch (Exception ex)
                 {
@@ -131,8 +130,6 @@ namespace Creek.FileRepository.Repositories
                     client.Disconnect();
                 }
             }
-
-            return repoFile;
         }
 
         /// <summary>
