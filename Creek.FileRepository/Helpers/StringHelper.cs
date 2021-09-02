@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Creek.FileRepository.Helpers
 {
     /// <summary>
     /// A helper class for string methods.
     /// </summary>
-    internal class StringHelper
+    internal static class StringHelper
     {
         /// <summary>
         /// Checks if a filename contains invalid characters.
         /// </summary>
         /// <param name="filename">The filename to be checked.</param>
         /// <returns>Returns true if the filename contains invalid characters.</returns>
-        public static bool IsInvalidFileName(string filename)
+        public static bool IsInvalidFileName(this string filename)
         {
             char[] invalidCharacters = new char[] { '<', '>', ':', '\'', '/', '\\', '|', '?', '*' };
 

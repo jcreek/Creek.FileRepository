@@ -42,7 +42,7 @@ namespace Creek.FileRepository.Repositories
         /// <returns>Returns the filename.</returns>
         public async Task<string> CreateFileAsync(RepoFile file)
         {
-            if (StringHelper.IsInvalidFileName(file.Filename))
+            if (file.Filename.IsInvalidFileName())
             {
                 throw new ArgumentException($"The filename for'{nameof(file)}' contains invalid characters for a filename.", nameof(file));
             }
@@ -64,7 +64,7 @@ namespace Creek.FileRepository.Repositories
             {
                 throw new ArgumentException($"'{nameof(filename)}' cannot be null or empty.", nameof(filename));
             }
-            else if (StringHelper.IsInvalidFileName(filename))
+            else if (filename.IsInvalidFileName())
             {
                 throw new ArgumentException($"'{nameof(filename)}' contains invalid characters for a filename.", nameof(filename));
             }
@@ -102,7 +102,7 @@ namespace Creek.FileRepository.Repositories
             {
                 throw new ArgumentException($"'{nameof(filename)}' cannot be null or empty.", nameof(filename));
             }
-            else if (StringHelper.IsInvalidFileName(filename))
+            else if (filename.IsInvalidFileName())
             {
                 throw new ArgumentException($"'{nameof(filename)}' contains invalid characters for a filename.", nameof(filename));
             }
@@ -140,7 +140,7 @@ namespace Creek.FileRepository.Repositories
         /// <returns>Returns true if update was successful.</returns>
         public async Task<bool> UpdateFileAsync(RepoFile file)
         {
-            if (StringHelper.IsInvalidFileName(file.Filename))
+            if (file.Filename.IsInvalidFileName())
             {
                 throw new ArgumentException($"The filename for'{nameof(file)}' contains invalid characters for a filename.", nameof(file));
             }
