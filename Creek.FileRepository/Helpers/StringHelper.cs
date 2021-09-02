@@ -17,9 +17,9 @@ namespace Creek.FileRepository.Helpers
         /// <returns>Returns true if the filename contains invalid characters.</returns>
         public static bool IsInvalidFileName(this string filename)
         {
-            char[] invalidCharacters = new char[] { '<', '>', ':', '\'', '/', '\\', '|', '?', '*' };
-
-            return Array.Exists(invalidCharacters, character => filename.Contains(character.ToString()));
+            // Check for Windows characters explicitly to ensure the filename is valid for Linux and Windows
+            Regex regex = new Regex(@"[<>:'\/\\|\?\*]");
+            return regex.IsMatch(filename);
         }
 
         /// <summary>
