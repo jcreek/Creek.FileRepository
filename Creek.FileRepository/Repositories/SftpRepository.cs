@@ -1,5 +1,6 @@
 ﻿using Creek.FileRepository.Helpers;
 using Creek.FileRepository.Models;
+using Creek.FileRepository.RepositoryOptions;
 using Creek.HelpfulExtensions;
 using Microsoft.Extensions.Configuration;
 using Renci.SshNet;
@@ -28,11 +29,14 @@ namespace Creek.FileRepository.Repositories
         /// <param name="config">The configuration to initialise the repository with.</param>
         internal SftpRepository(IConfiguration config)
         {
-            this.host = config["SftpRepository:host"];
-            this.port = int.Parse(config["SftpRepository:port"]);
-            this.username = config["SftpRepository:username"].ToString();
-            this.password = config["SftpRepository:password"].ToString();
-            this.remoteDirectoryPath = config["SftpRepository:remoteDirectoryPath"].ToString();
+            SftpRepositoryOptions sftpRepositoryOptions = config.GetSection(SftpRepositoryOptions.SftpRepository)
+                .Get<SftpRepositoryOptions>();
+
+            this.host = sftpRepositoryOptions.Host;
+            this.port = sftpRepositoryOptions.Port;
+            this.username = sftpRepositoryOptions.Username;
+            this.password = sftpRepositoryOptions.Password;
+            this.remoteDirectoryPath = sftpRepositoryOptions.RemoteDirectoryPath;
         }
 
         /// <summary>
