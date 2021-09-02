@@ -15,11 +15,11 @@ To utilise a repository you'll need to set up the relevant section in your `apps
 
 ```json
 "SftpRepository": {
-    "host": "my-server.local",
-    "port": 22,
-    "username": "usernamegoeshere",
-    "password": "passwordgoeshere",
-    "remoteDirectoryPath": "/home/username/foldername"
+    "Host": "my-server.local",
+    "Port": 22,
+    "Username": "usernamegoeshere",
+    "Password": "passwordgoeshere",
+    "RemoteDirectoryPath": "/home/username/foldername"
   }
 ```
 
@@ -94,10 +94,10 @@ The appsettings sections for each one that isn't `in progress` are included belo
 
 ```json
 "SftpRepository": {
-    "host": "",
-    "port": 22,
-    "username": "",
-    "password": "",
-    "remoteDirectoryPath": "/"
+    "Host": "",
+    "Port": 22,
+    "Username": "",
+    "Password": "",
+    "RemoteDirectoryPath": "/"
   }
 ```
