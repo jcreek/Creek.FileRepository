@@ -1,5 +1,6 @@
 using Creek.FileRepository;
 using Creek.FileRepository.Models;
+using Creek.HelpfulExtensions;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
@@ -23,7 +24,7 @@ namespace UnitTests
         [Test]
         public async Task ShouldNotCreateAFileWithAnInvalidFilename()
         {
-            Assert.That(() => CreateTestFile("create><invalid?/test.txt"), Throws.TypeOf<ArgumentException>());
+            Assert.That(() => CreateTestFile("create><invalid?/test.txt", SystemTime.Now()), Throws.TypeOf<ArgumentException>());
         }
 
         [Test]
@@ -31,7 +32,7 @@ namespace UnitTests
         {
             try
             {
-                await CreateTestFile("createtest.txt");
+                await CreateTestFile("createtest.txt", SystemTime.Now());
             }
             catch (Exception ex)
             {
@@ -57,11 +58,14 @@ namespace UnitTests
         {
             string filename = "readtest.txt";
 
+            DateTime createdDateTime = new DateTime(2021, 9, 2, 12, 30, 21);
+            SystemTime.Now = () => new DateTime(2021, 9, 2, 12, 30, 21);
+
             // Setup
             try
             {
                 // Create a file to read
-                await CreateTestFile(filename);
+                await CreateTestFile(filename, createdDateTime);
             }
             catch (Exception ex)
             {
@@ -79,6 +83,8 @@ namespace UnitTests
                 Assert.NotNull(repoFile.Filename);
                 Assert.NotNull(repoFile.Content);
                 Assert.NotNull(repoFile.Created);
+                Assert.AreEqual(filename, repoFile.Filename);
+                Assert.AreEqual(createdDateTime, repoFile.Created);
             }
             catch (Exception ex)
             {
@@ -101,7 +107,7 @@ namespace UnitTests
             try
             {
                 // Create a file to read
-                await CreateTestFile(filename);
+                await CreateTestFile(filename, SystemTime.Now());
             }
             catch (Exception ex)
             {
@@ -143,13 +149,13 @@ namespace UnitTests
             await DeleteTestFile(filename);
         }
 
-        private async Task CreateTestFile(String filename)
+        private async Task CreateTestFile(String filename, DateTime created)
         {
             IFileRepository fileRepository = Factory.GetFileRepository(repositoryType, config);
 
             Stream contentStream = StreamHelper.GenerateStreamFromString("a,b \n c,d");
 
-            RepoFile repoFile = new RepoFile(filename, DateTime.Now, contentStream);
+            RepoFile repoFile = new RepoFile(filename, created, contentStream);
 
             await fileRepository.CreateFileAsync(repoFile);
         }

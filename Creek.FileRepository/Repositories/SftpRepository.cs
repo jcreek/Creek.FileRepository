@@ -1,5 +1,6 @@
 ﻿using Creek.FileRepository.Helpers;
 using Creek.FileRepository.Models;
+using Creek.HelpfulExtensions;
 using Microsoft.Extensions.Configuration;
 using Renci.SshNet;
 using Renci.SshNet.Sftp;
@@ -112,7 +113,7 @@ namespace Creek.FileRepository.Repositories
                 {
                     client.Connect();
 
-                    RepoFile repoFile = new RepoFile(filename, DateTime.Now);
+                    RepoFile repoFile = new RepoFile(filename, SystemTime.Now());
 
                     client.DownloadFile($"{this.remoteDirectoryPath}/{filename}", output: repoFile.Content);
 
